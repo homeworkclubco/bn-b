@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bnb.art/sitemap-index.xml
