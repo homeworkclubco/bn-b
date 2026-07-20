@@ -18,17 +18,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v5
-        with:
-          node-version: 22
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm exec astro build
-      - uses: actions/upload-pages-artifact@v4
-        with:
-          path: ./dist
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Install, build, and upload your site
+        uses: withastro/action@v6
 
   deploy:
     needs: build
