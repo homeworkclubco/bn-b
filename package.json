@@ -9,12 +9,13 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/alpinejs": "^0.5.0",
-    "@astrojs/sitemap": "^3.7.2",
+    "@astrojs/alpinejs": "^1.0.0",
+    "@astrojs/markdown-remark": "^7.2.1",
+    "@astrojs/sitemap": "^3.7.3",
     "@lucide/astro": "^1.8.0",
     "@unocss/astro": "^66.6.8",
     "alpinejs": "^3.15.11",
-    "astro": "^6.1.5",
+    "astro": "^7.1.1",
     "astro-pagescms": "^0.1.1",
     "lightbox3": "^1.1.0",
     "plyr": "^3.8.4",
@@ -26,9 +27,9 @@
   "devDependencies": {
     "@csstools/postcss-color-mix-function": "^4.0.2",
     "@csstools/postcss-global-data": "^4.0.0",
-    "astro-pagescms": "^0.1.0",
     "astro-favicons": "^3.1.6",
     "astro-icon": "^1.1.5",
+    "astro-pagescms": "^0.1.0",
     "autoprefixer": "^10.4.21",
     "eslint": "^9.35.0",
     "gsap": "^3.13.0",

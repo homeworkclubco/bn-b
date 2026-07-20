@@ -2,6 +2,7 @@
 import alpinejs from '@astrojs/alpinejs';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig } from 'astro/config';
+import { unified } from '@astrojs/markdown-remark';
 import UnoCSS from 'unocss/astro';
 
 import { SITE } from './src/config';
@@ -30,7 +31,7 @@ export default defineConfig({
   },
 
   markdown: {
-    rehypePlugins: [rehypeYoutubePlyr],
+    processor: unified({ rehypePlugins: [rehypeYoutubePlyr] }),
   },
 
   integrations: [UnoCSS(), sitemap(), alpinejs(), pagesCMS()],
