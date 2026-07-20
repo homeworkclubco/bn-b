@@ -12,13 +12,14 @@ Website for **Belliappa Norman-Butler**, a London-based hybrid art advisory prac
 |---|---|
 | Framework | [Astro 6](https://astro.build/) (static site generation) |
 | Language | TypeScript (strict mode) |
-| Styling | [UnoCSS](https://unocss.dev/) (custom preset) + [Tailwind CSS v4](https://tailwindcss.com/) + PostCSS |
+| Styling | [UnoCSS](https://unocss.dev/) (custom preset) + PostCSS (Utopia fluid type/space, nesting, custom media) |
 | Interactivity | [Alpine.js](https://alpinejs.dev/) |
-| Animation | GSAP |
+| Animation | Scroll-reveal via `IntersectionObserver` (`src/scripts/reveal.ts`) |
 | CMS | [Pages CMS](https://pagescms.org/) (Git-based, configured via `.pages.yml`) |
 | Media | Plyr (YouTube embeds), lightbox3 (image galleries), Sharp (image optimisation) |
 | Icons | `@lucide/astro` |
-| Fonts | Archivo Variable, Anton, Alex Brush (via `@fontsource`) |
+| Fonts | LTC Caslon Pro + Futura (via Adobe Typekit) |
+| Consent | vanilla-cookieconsent |
 | Package Manager | pnpm |
 
 ## Project Structure
@@ -32,18 +33,23 @@ Website for **Belliappa Norman-Butler**, a London-based hybrid art advisory prac
 │   │   ├── blocks/             # Page-section blocks
 │   │   ├── display/            # Heading, Prose, OverlapHeading
 │   │   ├── forms/              # Input, Textarea, Checkbox, Field
-│   │   └── layout/             # Layout primitives (Stack, Cluster, Grid, etc.)
+│   │   ├── layout/             # Layout primitives (Stack, Cluster, Grid, etc.)
+│   │   └── svg/                # Inline SVG components
 │   ├── content/
-│   │   ├── pages/              # Static pages (homepage.md, contact.md, people.md, work.md)
+│   │   ├── pages/              # Static pages (homepage.md, contact.md, people.md, work.md, press.md)
+│   │   ├── press/              # Press collection (folder of entries)
 │   │   ├── redirects.json      # Static redirects
 │   │   └── settings.json       # Site settings (organisation info, SEO defaults)
 │   ├── layouts/
 │   │   └── Layout.astro        # Root layout (SEO, header, footer, cookie consent)
+│   ├── lib/                    # Helpers (e.g. seo.ts)
 │   ├── pages/
 │   │   ├── index.astro         # Homepage
 │   │   └── [...slug].astro     # Generic page route
 │   ├── plugins/
 │   │   └── rehype-youtube-plyr.mjs
+│   ├── scripts/                # Client scripts (reveal, video-bg, justified-gallery)
+│   ├── config.ts               # Site config (@config alias)
 │   └── styles/                 # CSS layers, tokens, typography, colours
 ├── public/                     # Static public assets
 ├── .pages.yml                  # Pages CMS configuration
@@ -56,7 +62,7 @@ Website for **Belliappa Norman-Butler**, a London-based hybrid art advisory prac
 
 Content is managed through **Pages CMS**, which edits files directly in this repository. The CMS is configured in `.pages.yml`.
 
-Pages live in `src/content/pages/` as Markdown files with YAML frontmatter. Each page defines its `title`, `slug`, `seo` metadata, and an array of `sections` (blocks) that build the page layout.
+Pages live in `src/content/pages/` as Markdown files with YAML frontmatter. Each page defines its `title`, `slug`, `seo` metadata, and an array of `sections` (blocks) that build the page layout. Press entries live in the `src/content/press/` collection.
 
 `src/content.config.ts` is **auto-generated** from `.pages.yml` — do not edit it manually.
 
@@ -74,9 +80,9 @@ All commands are run from the root of the project:
 
 ## Design System
 
-- **Dark theme by default** — `data-color-scheme="dark"` on `<html>`
-- **Fluid typography & spacing** — scales interpolate between mobile (375px) and desktop (1760px)
-- **Semantic colour tokens** — `var(--color-bg)`, `var(--color-foreground)`, `var(--color-accent)` (#e6372e), etc.
+- **Light theme** — `data-color-scheme="light"` on `<html>`; warm off-white background (`#FEFBF2`) on near-black (`#051519`), black accent
+- **Fluid typography & spacing** — [Utopia](https://utopia.fyi/) scales interpolate between 320px and 1660px viewports
+- **Semantic colour tokens** — `var(--color-bg)`, `var(--color-foreground)`, `var(--color-accent)`, etc. (defined in `src/styles/color.css`)
 - **Never use raw values** — always reference design tokens for colours, spacing, and typography
 
 ## Path Aliases
@@ -88,7 +94,9 @@ All commands are run from the root of the project:
 | `@config` | `./src/config.ts` |
 | `@content/*` | `./src/content/*` |
 | `@layouts/*` | `./src/layouts/*` |
+| `@pages/*` | `./src/pages/*` |
 | `@styles/*` | `./src/styles/*` |
+| `@utils/*` | `./src/utils/*` |
 
 ## Deployment
 
